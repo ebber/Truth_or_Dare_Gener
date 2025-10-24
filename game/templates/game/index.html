@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truth or Dare</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            min-width: 120px;
+        }
+
+        .truth-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+        }
+
+        .dare-btn {
+            background: linear-gradient(45deg, #4834d4, #686de0);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .prompt-display {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prompt-text {
+            font-size: 1.3em;
+            line-height: 1.5;
+        }
+
+        .prompt-type {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Truth or Dare</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="buttons">
+                <button type="submit" name="action" value="truth" class="truth-btn">Truth</button>
+                <button type="submit" name="action" value="dare" class="dare-btn">Dare</button>
+            </div>
+        </form>
+
+        {% if current_prompt %}
+            <div class="prompt-display">
+                <div>
+                    <div class="prompt-type">{{ prompt_type|title }}</div>
+                    <div class="prompt-text">{{ current_prompt.text }}</div>
+                </div>
+            </div>
+        {% else %}
+            <div class="prompt-display">
+                <div class="prompt-text">Click Truth or Dare to get started!</div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

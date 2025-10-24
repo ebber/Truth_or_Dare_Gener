@@ -33,3 +33,6 @@ Thumbs.db
 # Logs
 *.log
 logs/
+
+# Claude Code session state (internal use only)
+.claude/
